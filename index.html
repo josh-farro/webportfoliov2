@@ -18,7 +18,7 @@
       --bg4:#1a1a1a;
       --line:#181818;
       --line2:#202020;
-      --dim:#2a2a2a;
+      --dim:#4a4a4a;
       --muted:#3a3a3a;
       --sub:#7a7a7a;
       --mid:#999;
@@ -99,7 +99,7 @@
     .nav-links a:hover{color:var(--white);text-shadow:0 0 8px rgba(240,235,226,0.3)}
     .nav-links a:hover::after,.nav-links a.active-nav::after{transform:scaleX(1)}
     .nav-links a.active-nav{color:var(--pale)}
-    .nav-links a .nav-index{font-size:.4rem;color:var(--dim);opacity:.6}
+    .nav-links a .nav-index{font-size:.4rem;color:var(--sub);opacity:1}
     .nav-right{display:flex;align-items:stretch;border-left:var(--border)}
     .nav-cta{
       font-family:'Space Mono',monospace;font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;
@@ -312,12 +312,12 @@
     .meta-row{
       display:flex;justify-content:space-between;align-items:center;
       font-family:'Space Mono',monospace;font-size:.52rem;letter-spacing:.1em;
-      color:var(--muted);padding:.5rem 0;border-bottom:var(--border);
+      color:var(--pale);padding:.5rem 0;border-bottom:var(--border);
       transition:background .15s,padding .15s;
     }
     .meta-row:last-child{border-bottom:none}
-    .meta-row:hover{color:var(--pale);padding-left:.4rem}
-    .meta-key{color:var(--dim)}
+    .meta-row:hover{color:var(--white);padding-left:.4rem}
+    .meta-key{color:var(--mid)}
     .meta-val{color:var(--pale);text-align:right}
     .meta-val.live{color:var(--red2);text-shadow:0 0 8px rgba(185,48,48,.4)}
 
@@ -504,8 +504,8 @@
     .edu-item{padding:2rem 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:1fr auto;align-items:start;gap:2rem}
     .edu-item:first-child{border-top:1px solid var(--line)}
     .edu-degree{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.03em;color:var(--white);line-height:1;margin-bottom:.5rem}
-    .edu-school{font-family:'Space Mono',monospace;font-size:.56rem;color:var(--sub);letter-spacing:.04em;line-height:1.6}
-    .edu-note{font-family:'Space Mono',monospace;font-size:.5rem;color:var(--dim);margin-top:.6rem;line-height:1.6}
+    .edu-school{font-family:'Space Mono',monospace;font-size:.56rem;color:var(--light);letter-spacing:.04em;line-height:1.6}
+    .edu-note{font-family:'Space Mono',monospace;font-size:.5rem;color:var(--pale);margin-top:.6rem;line-height:1.6}
     .edu-year{font-family:'Space Mono',monospace;font-size:.55rem;letter-spacing:.14em;color:var(--red);text-align:right;white-space:nowrap;padding-top:.2rem}
 
     /* ── PROJECTS ── */
@@ -526,7 +526,7 @@
     .proj-chips{display:flex;gap:.4rem;flex-wrap:wrap}
     .proj-chip{
       font-family:'Space Mono',monospace;font-size:.44rem;letter-spacing:.12em;text-transform:uppercase;
-      color:var(--dim);border:1px solid var(--line2);padding:.12rem .45rem;
+      color:var(--pale);border:1px solid var(--muted);padding:.12rem .45rem;
       transition:all .2s;
     }
     .proj-hd:hover .proj-chip{border-color:var(--muted);color:var(--mid)}
@@ -581,7 +581,7 @@
       display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem
     }
     .acc-badge-wrap{font-size:1.8rem;line-height:1}
-    .acc-date{font-family:'Space Mono',monospace;font-size:.44rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);text-align:center;line-height:1.5}
+    .acc-date{font-family:'Space Mono',monospace;font-size:.44rem;letter-spacing:.12em;text-transform:uppercase;color:var(--pale);text-align:center;line-height:1.5}
     .acc-right{padding:2rem 2rem 2rem}
     .acc-title{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.03em;color:var(--white);line-height:1.05;margin-bottom:.7rem}
     .acc-caption{font-size:.86rem;color:var(--light);line-height:1.82;max-width:60ch}
@@ -632,8 +632,8 @@
       transition:background .18s;cursor:default;
     }
     .cert-cell:hover{background:var(--bg2)}
-    .cert-issuer{font-family:'Space Mono',monospace;font-size:.44rem;letter-spacing:.24em;text-transform:uppercase;color:var(--red);margin-bottom:.5rem}
-    .cert-name{font-size:.8rem;color:var(--pale);line-height:1.45}
+    .cert-issuer{font-family:'Space Mono',monospace;font-size:.44rem;letter-spacing:.24em;text-transform:uppercase;color:var(--red2);margin-bottom:.5rem}
+    .cert-name{font-size:.8rem;color:var(--light);line-height:1.45}
 
     /* ── CONTACT ── */
     .contact-section{background:var(--bg2)}
@@ -746,7 +746,7 @@
     .sdk-bar{height:3px;background:var(--line2);position:relative;overflow:hidden}
     .sdk-bar-fill{position:absolute;top:0;left:0;height:100%;background:linear-gradient(90deg,var(--red),var(--red2));box-shadow:var(--glow-red);width:0;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
     .sdk-bar-fill.animated{width:var(--w)}
-    .sdk-count{font-family:'Space Mono',monospace;font-size:.48rem;color:var(--dim);white-space:nowrap}
+    .sdk-count{font-family:'Space Mono',monospace;font-size:.48rem;color:var(--pale);white-space:nowrap}
     .sdk-items{display:flex;flex-wrap:wrap;gap:.4rem;padding:1.2rem 1.6rem}
     .sdk-tag{
       font-family:'Space Mono',monospace;font-size:.52rem;letter-spacing:.06em;
@@ -767,7 +767,7 @@
     .skill-stat-cell:last-child{border-right:none}
     .skill-stat-num{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;color:var(--white);line-height:1}
     .skill-stat-label{font-family:'Space Mono',monospace;font-size:.44rem;letter-spacing:.22em;text-transform:uppercase;color:var(--sub);margin-top:.3rem}
-    .skill-stat-sub{font-size:.78rem;color:var(--dim);margin-top:.5rem;line-height:1.5}
+    .skill-stat-sub{font-size:.78rem;color:var(--light);margin-top:.5rem;line-height:1.5}
 
     /* ── PROJECTS — CASE FILE DEEP DIVE ── */
     .proj-case-hd{
