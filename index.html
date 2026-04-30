@@ -561,32 +561,129 @@
     .proj-img-ph{font-family:'Space Mono',monospace;font-size:.48rem;letter-spacing:.14em;text-transform:uppercase;color:var(--line2);text-align:center;line-height:2}
     .proj-panel img{width:100%;height:100%;object-fit:cover;filter:grayscale(.4)}
 
-    /* ── ACCOMPLISHMENTS ── */
+    /* ── ACCOMPLISHMENTS — CARD GRID + LIGHTBOX ── */
     .acc-section{background:var(--bg2)}
-    .acc-grid{display:flex;flex-direction:column;gap:0}
+    .acc-grid{
+      display:grid;grid-template-columns:repeat(2,1fr);
+      gap:1px;background:var(--line2);
+      border:var(--border);
+    }
     .acc-card{
-      display:grid;grid-template-columns:100px 1fr;
-      border-bottom:var(--border);
-      transition:background .2s;position:relative;overflow:hidden;
+      background:var(--bg1);
+      position:relative;overflow:hidden;cursor:crosshair;
+      transition:background .25s;
     }
-    .acc-card:first-child{border-top:var(--border)}
     .acc-card:hover{background:var(--bg3)}
-    .acc-card::after{
-      content:'';position:absolute;left:0;top:0;bottom:0;width:2px;
-      background:var(--red);transform:scaleY(0);transition:transform .3s;transform-origin:bottom
+
+    /* Image area */
+    .acc-img-wrap{
+      position:relative;height:220px;overflow:hidden;
+      background:var(--bg3);
     }
-    .acc-card:hover::after{transform:scaleY(1)}
-    .acc-left{
-      padding:2rem;border-right:var(--border);
-      display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem
+    .acc-img-wrap img{
+      width:100%;height:100%;object-fit:cover;
+      filter:grayscale(.5) contrast(1.1) brightness(.75);
+      transform:scale(1.04);
+      transition:transform .6s ease,filter .6s ease;
+      display:block;
     }
-    .acc-badge-wrap{font-size:1.8rem;line-height:1}
-    .acc-date{font-family:'Space Mono',monospace;font-size:.44rem;letter-spacing:.12em;text-transform:uppercase;color:var(--pale);text-align:center;line-height:1.5}
-    .acc-right{padding:2rem 2rem 2rem}
-    .acc-title{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.03em;color:var(--white);line-height:1.05;margin-bottom:.7rem}
-    .acc-caption{font-size:.86rem;color:var(--light);line-height:1.82;max-width:60ch}
-    .acc-photo-row{grid-column:1/-1;border-bottom:var(--border);overflow:hidden;height:180px}
-    .acc-photo-row img{width:100%;height:100%;object-fit:cover;filter:grayscale(.5) contrast(1.05)}
+    .acc-card:hover .acc-img-wrap img{
+      transform:scale(1);filter:grayscale(.1) contrast(1.05) brightness(.9);
+    }
+    .acc-img-placeholder{
+      width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+      flex-direction:column;gap:.8rem;
+    }
+    .acc-img-placeholder .acc-badge-big{font-size:3.5rem;line-height:1;filter:grayscale(.3)}
+    .acc-img-overlay{
+      position:absolute;inset:0;
+      background:linear-gradient(to top, rgba(4,4,4,.85) 0%, rgba(4,4,4,.2) 50%, transparent 100%);
+      z-index:1;
+    }
+    /* Top-right date tag */
+    .acc-date-tag{
+      position:absolute;top:.9rem;right:.9rem;z-index:2;
+      font-family:'Space Mono',monospace;font-size:.42rem;letter-spacing:.18em;
+      text-transform:uppercase;color:var(--sub);
+      background:rgba(4,4,4,.8);border:var(--border);
+      padding:.2rem .6rem;backdrop-filter:blur(4px);
+    }
+    /* Expand hint */
+    .acc-expand-hint{
+      position:absolute;top:.9rem;left:.9rem;z-index:2;
+      font-family:'Space Mono',monospace;font-size:.4rem;letter-spacing:.16em;
+      text-transform:uppercase;color:var(--red2);
+      opacity:0;transition:opacity .2s;display:flex;align-items:center;gap:.3rem;
+    }
+    .acc-expand-hint::before{content:'[ + ]'}
+    .acc-card:hover .acc-expand-hint{opacity:1}
+    /* Red accent bar on hover */
+    .acc-card::before{
+      content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+      background:var(--red2);transform:scaleX(0);transition:transform .3s ease;
+      transform-origin:left;box-shadow:var(--glow-red);z-index:3;
+    }
+    .acc-card:hover::before{transform:scaleX(1)}
+
+    /* Card content below image */
+    .acc-body{padding:1.5rem 1.8rem 1.8rem;position:relative;z-index:2}
+    .acc-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.03em;color:var(--white);line-height:1.05;margin-bottom:.6rem}
+    .acc-caption{font-size:.84rem;color:var(--light);line-height:1.8;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .acc-read-more{
+      font-family:'Space Mono',monospace;font-size:.44rem;letter-spacing:.16em;
+      text-transform:uppercase;color:var(--red2);margin-top:.7rem;display:inline-flex;
+      align-items:center;gap:.4rem;
+    }
+    .acc-read-more::after{content:'→';transition:transform .2s}
+    .acc-card:hover .acc-read-more::after{transform:translateX(4px)}
+
+    /* ── LIGHTBOX ── */
+    .acc-lightbox{
+      position:fixed;inset:0;z-index:3000;
+      display:flex;align-items:center;justify-content:center;
+      background:rgba(0,0,0,.92);backdrop-filter:blur(8px);
+      opacity:0;pointer-events:none;transition:opacity .3s ease;
+    }
+    .acc-lightbox.open{opacity:1;pointer-events:all}
+    .acc-lb-inner{
+      width:min(90vw,820px);max-height:88vh;
+      background:var(--bg1);border:var(--border);
+      display:grid;grid-template-columns:1fr 1fr;
+      overflow:hidden;position:relative;
+      transform:translateY(20px);transition:transform .3s ease;
+    }
+    .acc-lightbox.open .acc-lb-inner{transform:translateY(0)}
+    .acc-lb-img{position:relative;overflow:hidden;min-height:380px}
+    .acc-lb-img img{width:100%;height:100%;object-fit:cover;display:block;filter:contrast(1.05) brightness(.85)}
+    .acc-lb-img-ph{
+      width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+      font-size:5rem;background:var(--bg3);min-height:380px;
+    }
+    .acc-lb-fade{
+      position:absolute;inset:0;
+      background:linear-gradient(to right,transparent 60%,var(--bg1) 100%);
+      z-index:1;
+    }
+    .acc-lb-content{padding:2.5rem;display:flex;flex-direction:column;justify-content:center;gap:1.2rem;overflow-y:auto}
+    .acc-lb-eyebrow{font-family:'Space Mono',monospace;font-size:.42rem;letter-spacing:.28em;text-transform:uppercase;color:var(--red2)}
+    .acc-lb-title{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.03em;color:var(--white);line-height:1;margin-bottom:.3rem}
+    .acc-lb-date{font-family:'Space Mono',monospace;font-size:.48rem;letter-spacing:.12em;color:var(--sub)}
+    .acc-lb-text{font-size:.88rem;color:var(--light);line-height:1.85}
+    .acc-lb-close{
+      position:absolute;top:1rem;right:1rem;z-index:10;
+      width:32px;height:32px;background:var(--bg2);border:var(--border);
+      color:var(--pale);font-size:1rem;cursor:crosshair;
+      display:flex;align-items:center;justify-content:center;
+      transition:all .15s;
+    }
+    .acc-lb-close:hover{background:var(--red2);color:#fff;border-color:var(--red2)}
+    @media(max-width:1100px){
+      .acc-grid{grid-template-columns:1fr}
+      .acc-lb-inner{grid-template-columns:1fr;max-height:92vh}
+      .acc-lb-img{min-height:220px}
+      .acc-lb-img-ph{min-height:220px}
+      .acc-lb-fade{display:none}
+    }
 
     /* ── TESTIMONIALS ── */
     .testi-section{background:var(--bg)}
@@ -1380,18 +1477,45 @@
       <div class="sec-eyebrow">Validated Milestones</div>
       <h2 class="sec-title">Accomplishments</h2>
       <div class="acc-grid">
-        <div class="acc-card fade-up" v-for="(a,i) in cms.accomplishments" :key="i">
-          <template v-if="a.image">
-            <div class="acc-photo-row"><img :src="a.image" :alt="a.title" /></div>
-          </template>
-          <div class="acc-left">
-            <div class="acc-badge-wrap">{{ a.badge || '▣' }}</div>
-            <div class="acc-date">{{ a.date }}</div>
+        <div class="acc-card fade-up" v-for="(a,i) in cms.accomplishments" :key="i" @click="openAcc=i">
+          <!-- Image or placeholder -->
+          <div class="acc-img-wrap">
+            <img v-if="a.image" :src="a.image" :alt="a.title" />
+            <div v-else class="acc-img-placeholder">
+              <span class="acc-badge-big">{{ a.badge || '▣' }}</span>
+            </div>
+            <div class="acc-img-overlay"></div>
+            <div class="acc-date-tag">{{ a.date }}</div>
+            <div class="acc-expand-hint"></div>
           </div>
-          <div class="acc-right">
+          <!-- Card body -->
+          <div class="acc-body">
             <div class="acc-title">{{ a.title }}</div>
             <p class="acc-caption">{{ a.caption }}</p>
+            <div class="acc-read-more">Read more</div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LIGHTBOX -->
+    <div class="acc-lightbox" :class="{open: openAcc !== null}" @click.self="openAcc=null">
+      <div class="acc-lb-inner" v-if="openAcc !== null">
+        <button class="acc-lb-close" @click="openAcc=null">×</button>
+        <!-- Image side -->
+        <div class="acc-lb-img">
+          <img v-if="cms.accomplishments[openAcc]?.image" :src="cms.accomplishments[openAcc].image" :alt="cms.accomplishments[openAcc].title" />
+          <div v-else class="acc-lb-img-ph">{{ cms.accomplishments[openAcc]?.badge || '▣' }}</div>
+          <div class="acc-lb-fade"></div>
+        </div>
+        <!-- Content side -->
+        <div class="acc-lb-content">
+          <div>
+            <div class="acc-lb-eyebrow">Validated Milestone</div>
+            <div class="acc-lb-title">{{ cms.accomplishments[openAcc]?.title }}</div>
+            <div class="acc-lb-date">{{ cms.accomplishments[openAcc]?.date }}</div>
+          </div>
+          <p class="acc-lb-text">{{ cms.accomplishments[openAcc]?.caption }}</p>
         </div>
       </div>
     </div>
@@ -1732,6 +1856,7 @@ createApp({
     const cmsSaving=ref(false);
     const cmsError=ref('');
     const openProject=ref(null);
+    const openAcc=ref(null);
     const carouselIndex=ref(0);
     const slidesVisible=ref(3);
     const carouselPages=Vue.computed(()=>{
@@ -1763,7 +1888,10 @@ createApp({
         document.addEventListener(evt,trackActivity,{passive:true});
       });
       await loadContent();
-      document.addEventListener('keydown',(e)=>{if(e.ctrlKey&&e.shiftKey&&e.key==='E'){e.preventDefault();openCMS()}});
+      document.addEventListener('keydown',(e)=>{
+        if(e.key==='Escape'){openAcc.value=null}
+        if(e.ctrlKey&&e.shiftKey&&e.key==='E'){e.preventDefault();openCMS()}
+      });
       function updateSlides(){slidesVisible.value=window.innerWidth<=1100?1:3;carouselIndex.value=0}
       updateSlides();
       window.addEventListener('resize',updateSlides);
@@ -1855,7 +1983,7 @@ createApp({
 
     return{
       photoSrc,photoMissing,cms,principles,skillGroups,
-      cmsOpen,cmsTab,cmsSaved,cmsSaving,cmsError,openProject,
+      cmsOpen,cmsTab,cmsSaved,cmsSaving,cmsError,openProject,openAcc,
       authOpen,authEmail,authPassword,authError,authLoading,isAuthenticated,
       carouselIndex,carouselPages,slidesVisible,carouselNext,carouselPrev,
       toggleProject,saveData,openCMS,login,logout
